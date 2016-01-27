@@ -31,7 +31,7 @@ func main() {
     }
     defer socket.CLose()
 
-    w := bufio.NewWriter(f)
+    w := bufio.NewWriter(socket)
     p := escpos.New(w)
 
     p.Verbose = true
