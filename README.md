@@ -29,7 +29,7 @@ func main() {
       if err != nil {
       println(err.Error())
     }
-    defer socket.CLose()
+    defer socket.Close()
 
     w := bufio.NewWriter(socket)
     p := escpos.New(w)
