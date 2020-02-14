@@ -119,6 +119,18 @@ func (e *Escpos) WriteGBK(data string) (int, error) {
 	return e.WriteRaw([]byte(gbk))
 }
 
+// WriteWEU write a string to the printer with Western European encode
+func (e *Escpos) WriteWEU(data string) (int, error) {
+	cd, err := iconv.Open("cp850", "utf-8")
+	if err != nil {
+		beelog.Critical("iconv.Open failed!")
+		return 0, err
+	}
+	defer cd.Close()
+	weu := cd.ConvString(data)
+	return e.WriteRaw([]byte(weu))
+}
+
 // Init printer settings
 // \x1B@ => ESC @  初始化打印机
 func (e *Escpos) Init() {
